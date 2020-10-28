@@ -95,6 +95,9 @@ sf:loadtest_staging:
 
 deploy_production:
   stage: production:deploy
+  only:
+    refs:
+      - master
   except: ["schedules"]
   resource_group: production
   script:
@@ -104,6 +107,9 @@ deploy_production:
 
 sf:loadtest_production:
   stage: production:test
+  only:
+    refs:
+      - master
   extends: .forge
   resource_group: production
   script:
