@@ -73,7 +73,7 @@ sf:loadtest_staging:
     - forge datasource push ${SF_ORG} ./*.csv --name-prefix-path="${SF_DS_PREFIX}/${TARGET_ENV}/" --auto-field-names
 
     - |
-      forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.js" \
+      forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.mjs" \
         --define ENV=\"${TARGET_ENV}\" \
         --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
   variables:
@@ -119,7 +119,7 @@ sf:loadtest_production:
     - forge datasource push ${SF_ORG} ./*.csv --name-prefix-path="${SF_DS_PREFIX}/${TARGET_ENV}/" --auto-field-names
 
     - |
-      forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.js" \
+      forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.mjs" \
         --define ENV=\"${TARGET_ENV}\" \
         --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
   variables:
