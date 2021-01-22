@@ -72,8 +72,10 @@ sf:loadtest_staging:
     - ./scripts/data-source.sh "${TARGET_ENV}"
     - forge datasource push ${SF_ORG} ./*.csv --name-prefix-path="${SF_DS_PREFIX}/${TARGET_ENV}/" --auto-field-names
 
-    - ./scripts/compile-loadtest.sh "${TARGET_ENV}" "/tmp/testcase.js"
-    - forge test-case launch "${TESTCASE}" --test-case-file="/tmp/testcase.js" --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
+    - |
+      forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.js" \
+        --define ENV=\"${TARGET_ENV}\" \
+        --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
   variables:
     TARGET_ENV: "${TARGET_ENV_STAGING}"
     LAUNCH_ARGS: "--validate"
@@ -116,8 +118,10 @@ sf:loadtest_production:
     - ./scripts/data-source.sh "${TARGET_ENV}"
     - forge datasource push ${SF_ORG} ./*.csv --name-prefix-path="${SF_DS_PREFIX}/${TARGET_ENV}/" --auto-field-names
 
-    - ./scripts/compile-loadtest.sh "${TARGET_ENV}" "/tmp/testcase.js"
-    - forge test-case launch "${TESTCASE}" --test-case-file="/tmp/testcase.js" --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
+    - |
+      forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.js" \
+        --define ENV=\"${TARGET_ENV}\" \
+        --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
   variables:
     TARGET_ENV: "${TARGET_ENV_PRODUCTION}"
     LAUNCH_ARGS: "--nfr-check-file=./loadtest/loadtest.nfr.yaml"
