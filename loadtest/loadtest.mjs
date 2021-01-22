@@ -7,14 +7,14 @@
 var config;
 if (ENV == "staging") {
   config = {
-    dsPrefix: "example-github-actions/staging/",
+    dsPrefix: "example-gitlab-ci/staging/",
 
     // For our staging environment we want to connect to a different host
     host: "http://testapp.loadtest.party:9001",
   };
 } else if (ENV == "production") {
   config = {
-    dsPrefix: "example-github-actions/production/",
+    dsPrefix: "example-gitlab-ci/production/",
     host: "https://testapp.loadtest.party",
   };
 } else {
