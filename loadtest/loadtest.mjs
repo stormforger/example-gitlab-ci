@@ -5,7 +5,6 @@
  */
 
 var config;
-
 if (ENV == "staging") {
   config = {
     dsPrefix: "example-github-actions/staging/",
