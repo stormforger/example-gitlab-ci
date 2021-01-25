@@ -1,5 +1,27 @@
-// NOTE: This file assumes one of {staging,production}.js is available during execution.
-definition.setTarget($host);
+/*
+ * NOTICE: DO NOT EDIT!
+ *
+ * This file is managed via https://github.com/stormforger/example-gitlab-ci/
+ */
+
+var config;
+if (ENV == "staging") {
+  config = {
+    dsPrefix: "example-gitlab-ci/staging/",
+
+    // For our staging environment we want to connect to a different host
+    host: "http://testapp.loadtest.party:9001",
+  };
+} else if (ENV == "production") {
+  config = {
+    dsPrefix: "example-gitlab-ci/production/",
+    host: "https://testapp.loadtest.party",
+  };
+} else {
+  throw new Exception("unknown environment");
+}
+
+definition.setTarget(config.host);
 
 definition.setArrivalPhases([
   {
@@ -13,7 +35,7 @@ definition.setTestOptions({
 });
 
 definition.session("country-lookup", function(session) {
-  var countries = session.ds.loadStructured($dsPrefix + "countries-de.csv");
+  var countries = session.ds.loadStructured(config.dsPrefix + "countries-de.csv");
   var country = session.ds.pickFrom(countries);
 
   visitLandingPage(session, country);
