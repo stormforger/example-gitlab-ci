@@ -4,7 +4,7 @@ variables:
   # Please edit to your GitLab project
   REPO_NAME: gitlab.com/stormforger/ci-playground
   SF_ORG: "demo"
-  SF_DS_PREFIX: "ci-playground"
+  SF_DS_PREFIX: "example-gitlab-ci"
   TARGET_ENV_STAGING: "staging"
   TARGET_ENV_PRODUCTION: "production"
 
@@ -71,7 +71,6 @@ sf:loadtest_staging:
   script:
     - ./scripts/data-source.sh "${TARGET_ENV}"
     - forge datasource push ${SF_ORG} ./*.csv --name-prefix-path="${SF_DS_PREFIX}/${TARGET_ENV}/" --auto-field-names
-
     - |
       forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.mjs" \
         --define ENV=\"${TARGET_ENV}\" \
