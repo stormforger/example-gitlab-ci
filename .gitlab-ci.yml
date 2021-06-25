@@ -74,19 +74,18 @@ sf:loadtest_staging:
     - |
       forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.mjs" \
         --define ENV=\"${TARGET_ENV}\" \
-        --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
+        --title="${TITLE}" --notes="${NOTES}" \
+        --label="git-ref=${CI_COMMIT_REF_NAME}" \
+        --label="gitlab-project=${CI_PROJECT_URL}" \
+        --label="gitlab-commit=${CI_COMMIT_SHA}" \
+        --label="gitlab-job=${CI_JOB_STAGE} ${CI_JOB_NAME}" \
+        --label="giblab-job-url=${CI_JOB_URL}" \
+        --label="gitlab-actor=${GITLAB_USER_LOGIN}" \
+        ${LAUNCH_ARGS}
   variables:
     TARGET_ENV: "${TARGET_ENV_STAGING}"
     LAUNCH_ARGS: "--validate"
     NOTES: |
-      Name | Value
-      ---- | -----
-      Ref  | ${CI_COMMIT_REF_NAME}
-      Sha  | ${CI_COMMIT_SHA}
-      Job#    | [${CI_JOB_ID}](${CI_JOB_URL})
-      Concurrent# | ${CI_CONCURRENT_ID}
-      User    | ${GITLAB_USER_LOGIN}
-
       Message:
       ${CI_COMMIT_MESSAGE}
     TITLE: "#${CI_CONCURRENT_ID} (${CI_COMMIT_SHORT_SHA})"
@@ -120,19 +119,18 @@ sf:loadtest_production:
     - |
       forge test-case launch "${TESTCASE}" --test-case-file="loadtest/loadtest.mjs" \
         --define ENV=\"${TARGET_ENV}\" \
-        --title="${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS}
+        --title="${TITLE}" --notes="${NOTES}" \
+        --label="git-ref=${CI_COMMIT_REF_NAME}" \
+        --label="gitlab-project=${CI_PROJECT_URL}" \
+        --label="gitlab-commit=${CI_COMMIT_SHA}" \
+        --label="gitlab-job=${CI_JOB_STAGE} ${CI_JOB_NAME}" \
+        --label="giblab-job-url=${CI_JOB_URL}" \
+        --label="gitlab-actor=${GITLAB_USER_LOGIN}" \
+        ${LAUNCH_ARGS}
   variables:
     TARGET_ENV: "${TARGET_ENV_PRODUCTION}"
     LAUNCH_ARGS: "--nfr-check-file=./loadtest/loadtest.nfr.yaml"
     NOTES: |
-      Name | Value
-      ---- | -----
-      Ref  | ${CI_COMMIT_REF_NAME}
-      Sha  | ${CI_COMMIT_SHA}
-      Job#    | [${CI_JOB_ID}](${CI_JOB_URL})
-      Concurrent# | ${CI_CONCURRENT_ID}
-      User    | ${GITLAB_USER_LOGIN}
-
       Message:
       ${CI_COMMIT_MESSAGE}
     TITLE: "#${CI_CONCURRENT_ID} (${CI_COMMIT_SHORT_SHA})"
